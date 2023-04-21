@@ -1,8 +1,10 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as dat from "dat.gui";
 import "./assets/styles/main.scss";
 
+const gltfLoader = new GLTFLoader();
 // Debug
 const gui = new dat.GUI();
 
@@ -13,24 +15,78 @@ const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 
 // Objects
-const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
+// const geometry = new THREE.TorusGeometry(0.7, 0.05, 16, 100);
 
-// Materials
+// Object GLTF
 
-const material = new THREE.MeshBasicMaterial();
-material.color = new THREE.Color(0xff0000);
+gltfLoader.load("./ferrari.gltf", (gltf) => {
+  gltf.scene.scale.set(0.5, 0.5, 0.5);
+  gltf.scene.rotation.set(0, 0, 0);
+  gltf.scene.position.set(0, -2, 0);
+  gltf.scene.opacity = "1";
+  scene.add(gltf.scene);
 
-// Mesh
-const sphere = new THREE.Mesh(geometry, material);
-scene.add(sphere);
+  const car = gui.addFolder("car");
+
+  car.add(gltf.scene.rotation, "x").min(0).max(9).step(0.01);
+  car.add(gltf.scene.rotation, "y").min(0).max(9).step(0.01);
+  car.add(gltf.scene.rotation, "z").min(0).max(9).step(0.01);
+
+  car.add(gltf.scene.position, "x").min(-10).max(10).step(0.01);
+  car.add(gltf.scene.position, "y").min(-10).max(10).step(0.01);
+  car.add(gltf.scene.position, "z").min(-30).max(10).step(0.01);
+});
 
 // Lights
-
-const pointLight = new THREE.PointLight(0xffffff, 0.1);
-pointLight.position.x = 2;
-pointLight.position.y = 3;
-pointLight.position.z = 4;
+const pointLight = new THREE.PointLight(0xffffff, 10);
+pointLight.scale.set(0.3, 0.3, 0.3);
+pointLight.position.x = -0.2;
+pointLight.position.y = 4.9;
+pointLight.position.z = 2.5;
+pointLight.intensity = 10;
 scene.add(pointLight);
+
+const light1 = gui.addFolder("light1");
+
+light1.add(pointLight.position, "x").min(-10).max(10).step(0.1);
+light1.add(pointLight.position, "y").min(-10).max(10).step(0.1);
+light1.add(pointLight.position, "z").min(-50).max(10).step(0.1);
+light1.add(pointLight, "intensity").min(-10).max(100).step(0.1);
+
+const light1Color = {
+  color: 0xffffff,
+};
+
+light1.addColor(light1Color, "color").onChange(() => {
+  pointLight.color.set(light1Color.color);
+});
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 2);
+scene.add(pointLightHelper);
+// Lights 2
+const pointLight2 = new THREE.AmbientLight(0xffffff, 10);
+pointLight2.scale.set(0.3, 0.3, 0.3);
+pointLight2.position.x = -0.2;
+pointLight2.position.y = -1.1;
+pointLight2.position.z = 7.2;
+pointLight2.intensity = 10;
+scene.add(pointLight2);
+
+const light2 = gui.addFolder("PointLight2");
+
+light2.add(pointLight2.position, "x").min(-10).max(10).step(0.1);
+light2.add(pointLight2.position, "y").min(-10).max(10).step(0.1);
+light2.add(pointLight2.position, "z").min(-50).max(10).step(0.1);
+light2.add(pointLight2, "intensity").min(-10).max(100).step(0.1);
+
+const light2Color = {
+  color: 0xffffff,
+};
+
+light2.addColor(light2Color, "color").onChange(() => {
+  light2Color.color.set(light2Color.color);
+});
+const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 2);
+scene.add(pointLightHelper2);
 
 /**
  * Sizes
@@ -59,15 +115,36 @@ window.addEventListener("resize", () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(
-  75,
+  28,
   sizes.width / sizes.height,
   0.1,
   100
 );
 camera.position.x = 0;
-camera.position.y = 0;
-camera.position.z = 2;
+camera.position.y = -0.7;
+camera.position.z = 15;
+
+camera.rotation.x = 0;
+camera.rotation.y = 0;
+camera.rotation.z = 0;
+
 scene.add(camera);
+
+const cameraSettings = gui.addFolder("camera");
+gui.add(camera.position, "x", -10, 10).step(0.1);
+gui.add(camera.position, "y", -10, 10).step(0.1);
+gui.add(camera.position, "z", -10, 10).step(0.1);
+
+gui.add(camera.rotation, "x", -10, 10).step(0.1);
+gui.add(camera.rotation, "y", -10, 10).step(0.1);
+gui.add(camera.rotation, "z", -10, 10).step(0.1);
+
+gui
+  .add(camera, "fov", 50, 150)
+  .name("Focal Length")
+  .onChange(() => {
+    camera.updateProjectionMatrix();
+  });
 
 // Controls
 // const controls = new OrbitControls(camera, canvas)
@@ -78,9 +155,11 @@ scene.add(camera);
  */
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
+  alpha: true,
 });
+
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 4));
 
 /**
  * Animate
@@ -92,7 +171,7 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   // Update objects
-  sphere.rotation.y = 1 * elapsedTime;
+  // sphere.rotation.y = 1 * elapsedTime;
 
   // Update Orbital Controls
   // controls.update()
