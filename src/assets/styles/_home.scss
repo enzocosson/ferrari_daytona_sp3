@@ -46,15 +46,17 @@ main {
   }
   .loader__active {
     animation: loader 2s ease-in-out 1 forwards;
-    animation-delay: 1s;
+    animation-delay: 0.5s;
+
     @keyframes loader {
       from {
-        background-color: $black;
+        background-color: #181818;
       }
       to {
         background-color: #000000;
       }
     }
+
     .black {
       opacity: 1;
       animation: logo__loader__black 0.5s ease-in-out 1 forwards;
