@@ -1,4 +1,5 @@
 main {
+  position: relative;
   background-color: $white;
   width: 100%;
   height: 100vh;
@@ -6,38 +7,252 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  .title {
-    font-family: $font_first;
-    color: $gray;
-    font-size: 20rem;
-  }
-  .interaction {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  overflow: hidden;
 
+  padding: 2vw;
+
+  .webgl {
+    pointer-events: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: 2;
+  }
+
+  header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    column-gap: 2rem;
-    z-index: 2;
 
-    button {
-      background-color: $black;
-      color: $white;
+    .logo {
+      width: 2rem;
+    }
+  }
+  .container_title {
+    position: relative;
+    z-index: 1;
+
+    .title {
+      position: relative;
       font-family: $font_first;
-      font-size: 1rem;
-      height: 2rem;
-      width: 5rem;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      transition: 0.2s ease-in-out;
-      &:hover {
-        background-color: $red;
+      color: $gray;
+      font-size: 18vw;
+      margin-bottom: 18rem;
+
+      &:before {
+        content: "DAYTONA";
+        position: absolute;
+        bottom: -61%;
+        left: 0%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        font-family: $font_first;
+        background: linear-gradient(to top, #f6f7f8, transparent);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 18vw;
+
+        transform: scale(1, -1);
+      }
+    }
+
+    h2 {
+      position: absolute;
+      top: 57%;
+      right: 0%;
+      transform: translate(0%, -50%);
+      font-family: Oswald, sans-serif;
+      color: #181818;
+      font-size: 2.5rem;
+      z-index: 2;
+      letter-spacing: 0.5rem;
+
+      span {
+        color: $red;
+      }
+    }
+  }
+
+  .points__background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .left__side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw;
+
+    .statistics {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 60%;
+      z-index: 2;
+
+      .stats {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        width: 100%;
+
+        h3 {
+          font-family: $font_first;
+          font-size: 5rem;
+          color: $black;
+          margin-right: 1rem;
+          font-weight: bold;
+        }
+        p {
+          position: relative;
+          top: -1.5rem;
+          left: 0.2rem;
+          font-family: $font_first;
+          font-size: 1rem;
+          color: $dark-gray;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .bottom__side {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw;
+
+    .interaction {
+      width: 40%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      margin-bottom: 3rem;
+
+      button {
+        background-color: $black;
         color: $white;
+        font-family: $font_first;
+        font-size: 0.8rem;
+        height: 1.5rem;
+        width: 5rem;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        transition: 0.2s ease-in-out;
+        text-transform: uppercase;
+        &:hover {
+          background-color: $red;
+          color: $white;
+        }
+      }
+    }
+  }
+  .container__bottom {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .button__sound {
+      position: relative;
+      width: 1.3rem;
+      height: 1.5rem;
+      cursor: pointer;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      .line {
+        width: 1.5px;
+        height: 1.5rem;
+        background-color: $black;
+      }
+      .line1 {
+        height: 1rem;
+      }
+      .line2 {
+        height: 1.5rem;
+      }
+      .line3 {
+        height: 1.2rem;
+      }
+    }
+    .arrow__bottom {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .ame__text {
+      font-family: $font_second;
+      font-size: 1.2rem;
+      color: $black;
+      font-weight: 200;
+      letter-spacing: 0.2rem;
+
+      span {
+        color: $red;
+      }
+    }
+  }
+
+  .right__side {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vw;
+
+    p {
+      position: relative;
+      top: -1.5rem;
+      left: 0.2rem;
+      font-family: $font_second;
+      font-size: 1.3rem;
+      color: $black;
+      font-weight: 400;
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      letter-spacing: 0.3rem;
+
+      span {
+        color: $red;
       }
     }
   }

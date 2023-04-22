@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
+import gsap from "gsap";
+import { TweenMax } from "gsap";
+
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as dat from "dat.gui";
@@ -20,10 +23,12 @@ const scene = new THREE.Scene();
 
 // Object GLTF
 
+let t1 = gsap.timeline();
+
 gltfLoader.load("./ferrari.gltf", (gltf) => {
   gltf.scene.scale.set(0.5, 0.5, 0.5);
   gltf.scene.rotation.set(0, 0, 0);
-  gltf.scene.position.set(0, -2, 0);
+  gltf.scene.position.set(0, -1.56, 0);
   gltf.scene.opacity = "1";
   scene.add(gltf.scene);
 
@@ -41,57 +46,90 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   const backButton = document.getElementById("back");
   const leftButton = document.getElementById("left");
   const rightButton = document.getElementById("right");
-
-  const frontTween = new TWEEN.Tween(gltf.scene.position)
-    .to({ x: 0, y: -2, z: 5 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const frontTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
-    .to({ x: 0, y: -1.5708, z: 0 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const backTween = new TWEEN.Tween(gltf.scene.position)
-    .to({ x: 0, y: -2, z: 10 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const backTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
-    .to({ x: 0, y: 1.5708, z: 0 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const leftTween = new TWEEN.Tween(gltf.scene.position)
-    .to({ x: 0, y: -2, z: 0 }, 1000)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const leftTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
-    .to({ x: 0, y: -3.21, z: 0 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const rightTween = new TWEEN.Tween(gltf.scene.position)
-    .to({ x: 0, y: -2, z: 0 }, 1000)
-    .easing(TWEEN.Easing.Quadratic.InOut);
-
-  const rightTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
-    .to({ x: 0, y: 0, z: 0 }, 2500)
-    .easing(TWEEN.Easing.Quadratic.InOut);
+  const topButton = document.getElementById("top");
 
   frontButton.addEventListener("click", () => {
-    frontTween.start();
-    frontTweenRotation.start();
+    gsap.to(gltf.scene.position, {
+      duration: 2,
+      x: 0,
+      y: -1.56,
+      z: 5,
+      ease: "Power2.easeInOut",
+    });
+    gsap.to(gltf.scene.rotation, {
+      duration: 2,
+      x: 0,
+      y: -1.5708,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
   });
-
   backButton.addEventListener("click", () => {
-    backTween.start();
-    backTweenRotation.start();
+    gsap.to(gltf.scene.position, {
+      duration: 2,
+      x: 0,
+      y: -1.56,
+      z: 10,
+      ease: "Power2.easeInOut",
+    });
+    gsap.to(gltf.scene.rotation, {
+      duration: 2,
+      x: 0,
+      y: 1.5708,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
   });
 
   leftButton.addEventListener("click", () => {
-    leftTween.start();
-    leftTweenRotation.start();
+    gsap.to(gltf.scene.position, {
+      duration: 2,
+      x: 0,
+      y: -1.56,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
+    gsap.to(gltf.scene.rotation, {
+      duration: 2,
+      x: 0,
+      y: -3.21,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
   });
 
   rightButton.addEventListener("click", () => {
-    rightTween.start();
-    rightTweenRotation.start();
+    gsap.to(gltf.scene.position, {
+      duration: 2,
+      x: 0,
+      y: -1.56,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
+    gsap.to(gltf.scene.rotation, {
+      duration: 2,
+      x: 0,
+      y: 0,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
+  });
+
+  topButton.addEventListener("click", () => {
+    gsap.to(gltf.scene.position, {
+      duration: 2,
+      x: 0,
+      y: -0.84,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
+    gsap.to(gltf.scene.rotation, {
+      duration: 2,
+      x: 1.53,
+      y: -0.65,
+      z: 0,
+      ease: "Power2.easeInOut",
+    });
   });
 });
 

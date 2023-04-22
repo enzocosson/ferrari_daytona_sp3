@@ -16,7 +16,7 @@ body {
 }
 $white: #ffffff;
 $gray: #f6f7f8;
-$dark-gray: #fcfcfc;
+$dark-gray: #8f8f8f;
 $black: #181818;
 $dark-black: #000000;
 $red: #c81e11;
@@ -35,13 +35,3 @@ $font_second: Oxanium, sans-serif;
 // ::-webkit-scrollbar-thumb {
 //   background-color: var(--primary-color);
 // }
-.webgl {
-  pointer-events: none;
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  outline: none;
-  z-index: 1;
-}
