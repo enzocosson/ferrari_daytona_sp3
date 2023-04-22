@@ -1,3 +1,8 @@
+const loader = document.querySelector(".loader");
+window.addEventListener("load", () => {
+  loader.classList.add("loader__active");
+});
+
 const frontButton = document.getElementById("front");
 const backButton = document.getElementById("back");
 const leftButton = document.getElementById("left");
