@@ -36,10 +36,12 @@ $font_second: Oxanium, sans-serif;
 //   background-color: var(--primary-color);
 // }
 .webgl {
+  pointer-events: none;
   position: fixed;
   width: 100%;
   height: 100vh;
   top: 0;
   left: 0;
   outline: none;
+  z-index: 1;
 }

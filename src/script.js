@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import * as TWEEN from "@tweenjs/tween.js";
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as dat from "dat.gui";
@@ -35,6 +36,63 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   car.add(gltf.scene.position, "x").min(-10).max(10).step(0.01);
   car.add(gltf.scene.position, "y").min(-10).max(10).step(0.01);
   car.add(gltf.scene.position, "z").min(-30).max(10).step(0.01);
+
+  const frontButton = document.getElementById("front");
+  const backButton = document.getElementById("back");
+  const leftButton = document.getElementById("left");
+  const rightButton = document.getElementById("right");
+
+  const frontTween = new TWEEN.Tween(gltf.scene.position)
+    .to({ x: 0, y: -2, z: 5 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const frontTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
+    .to({ x: 0, y: -1.5708, z: 0 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const backTween = new TWEEN.Tween(gltf.scene.position)
+    .to({ x: 0, y: -2, z: 10 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const backTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
+    .to({ x: 0, y: 1.5708, z: 0 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const leftTween = new TWEEN.Tween(gltf.scene.position)
+    .to({ x: 0, y: -2, z: 0 }, 1000)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const leftTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
+    .to({ x: 0, y: -3.21, z: 0 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const rightTween = new TWEEN.Tween(gltf.scene.position)
+    .to({ x: 0, y: -2, z: 0 }, 1000)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  const rightTweenRotation = new TWEEN.Tween(gltf.scene.rotation)
+    .to({ x: 0, y: 0, z: 0 }, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+  frontButton.addEventListener("click", () => {
+    frontTween.start();
+    frontTweenRotation.start();
+  });
+
+  backButton.addEventListener("click", () => {
+    backTween.start();
+    backTweenRotation.start();
+  });
+
+  leftButton.addEventListener("click", () => {
+    leftTween.start();
+    leftTweenRotation.start();
+  });
+
+  rightButton.addEventListener("click", () => {
+    rightTween.start();
+    rightTweenRotation.start();
+  });
 });
 
 // Lights
@@ -160,6 +218,14 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 4));
+
+function render() {
+  requestAnimationFrame(render);
+  TWEEN.update();
+  renderer.render(scene, camera);
+}
+
+render();
 
 /**
  * Animate
