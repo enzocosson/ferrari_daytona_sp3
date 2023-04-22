@@ -119,28 +119,380 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
-      y: -0.84,
+      y: -0.2,
       z: 0,
       ease: "Power2.easeInOut",
     });
     gsap.to(gltf.scene.rotation, {
       duration: 2,
       x: 1.53,
-      y: -0.65,
+      y: 0,
       z: 0,
       ease: "Power2.easeInOut",
     });
   });
+
+  // const buttonTopLeft = document.getElementById("buttonTopLeft");
+  // const buttonTopMiddle = document.getElementById("buttonTopMiddle");
+  // const buttonTopRight = document.getElementById("buttonTopRight");
+  // const buttonMiddleLeft = document.getElementById("buttonMiddleLeft");
+  // const buttonMiddleRight = document.getElementById("buttonMiddleRight");
+  // const buttonBottomLeft = document.getElementById("buttonBottomLeft");
+  // const buttonBottomMiddle = document.getElementById("buttonBottomMiddle");
+  // const buttonBottomRight = document.getElementById("buttonBottomRight");
+
+  // buttonTopLeft.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "-=0.3",
+  //     y: "-=0.3",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  // buttonTopMiddle.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "-=0.3",
+  //     y: "+=0",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  // buttonTopRight.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "-=0.3",
+  //     y: "+=0.3",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  // buttonMiddleLeft.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "+=0",
+  //     y: "-=0.3",
+  //     z: "0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+  // buttonMiddleRight.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "+=0",
+  //     y: "+=0.3",
+  //     z: "-=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  // buttonBottomLeft.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "+=0.3",
+  //     y: "-=0.3",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  // buttonBottomMiddle.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "+=0.3",
+  //     y: "+=0",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+  // buttonBottomRight.addEventListener("click", () => {
+  //   gsap.to(gltf.scene.rotation, {
+  //     duration: 0.5,
+  //     x: "+=0.3",
+  //     y: "+=0.3",
+  //     z: "+=0",
+  //     ease: "Power2.easeInOut",
+  //   });
+  // });
+
+  const buttonTopLeft = document.getElementById("buttonTopLeft");
+  const buttonTopMiddle = document.getElementById("buttonTopMiddle");
+  const buttonTopRight = document.getElementById("buttonTopRight");
+  const buttonMiddleLeft = document.getElementById("buttonMiddleLeft");
+  const buttonMiddleRight = document.getElementById("buttonMiddleRight");
+  const buttonBottomLeft = document.getElementById("buttonBottomLeft");
+  const buttonBottomMiddle = document.getElementById("buttonBottomMiddle");
+  const buttonBottomRight = document.getElementById("buttonBottomRight");
+
+  buttonTopLeft.addEventListener("mousedown", () => {
+    autoIncrement("topLeft");
+  });
+
+  buttonTopLeft.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonTopMiddle.addEventListener("mousedown", () => {
+    autoIncrement("topMiddle");
+  });
+
+  buttonTopMiddle.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonTopRight.addEventListener("mousedown", () => {
+    autoIncrement("topRight");
+  });
+
+  buttonTopRight.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonMiddleLeft.addEventListener("mousedown", () => {
+    autoIncrement("middleLeft");
+  });
+
+  buttonMiddleLeft.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonMiddleRight.addEventListener("mousedown", () => {
+    autoIncrement("middleRight");
+  });
+
+  buttonMiddleRight.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonBottomLeft.addEventListener("mousedown", () => {
+    autoIncrement("bottomLeft");
+  });
+
+  buttonBottomLeft.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonBottomMiddle.addEventListener("mousedown", () => {
+    autoIncrement("bottomMiddle");
+  });
+
+  buttonBottomMiddle.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  buttonBottomRight.addEventListener("mousedown", () => {
+    autoIncrement("bottomRight");
+  });
+
+  buttonBottomRight.addEventListener("mouseup", () => {
+    stopAutoIncrement();
+  });
+
+  let autoIncrementIntervalId;
+
+  function autoIncrement(direction) {
+    gsap.to(gltf.scene.rotation, {
+      duration: 0.5,
+      x: "+=0",
+      y: "+=0",
+      z: "+=0",
+      ease: "Power2.easeInOut",
+    });
+    autoIncrementIntervalId = setInterval(() => {
+      gsap.to(gltf.scene.rotation, {
+        duration: 1,
+        x: `${
+          direction === "topLeft"
+            ? "-=0.5"
+            : direction === "topMiddle"
+            ? "-=0.5"
+            : direction === "topRight"
+            ? "-=0.5"
+            : direction === "middleLeft"
+            ? "+=0"
+            : direction === "middleRight"
+            ? "+=0"
+            : direction === "bottomLeft"
+            ? "+=0.5"
+            : direction === "bottomMiddle"
+            ? "+=0.5"
+            : direction === "bottomRight"
+            ? "+=0.5"
+            : "0"
+        }`,
+        y: `${
+          direction === "topLeft"
+            ? "-=0.5"
+            : direction === "topMiddle"
+            ? "+=0"
+            : direction === "topRight"
+            ? "+=0.5"
+            : direction === "middleLeft"
+            ? "-=0.5"
+            : direction === "middleRight"
+            ? "+=0.5"
+            : direction === "bottomLeft"
+            ? "-=0.5"
+            : direction === "bottomMiddle"
+            ? "+=0"
+            : direction === "bottomRight"
+            ? "+=0.5"
+            : "0"
+        }`,
+        z: "+=0",
+        ease: "Power2.easeOut",
+      });
+    }, 10);
+  }
+
+  function stopAutoIncrement() {
+    clearInterval(autoIncrementIntervalId);
+  }
+  clearInterval(autoIncrementIntervalId);
 });
 
 // Lights
 const pointLight = new THREE.PointLight(0xffffff, 10);
 pointLight.scale.set(0.3, 0.3, 0.3);
-pointLight.position.x = -0.2;
+pointLight.position.x = 0.2;
 pointLight.position.y = 4.9;
-pointLight.position.z = 2.5;
+pointLight.position.z = 6.5;
 pointLight.intensity = 10;
 scene.add(pointLight);
+
+leftButton.addEventListener("click", () => {
+  console.log("click");
+  gsap
+    .timeline()
+    .to(pointLight.position, {
+      duration: 3,
+      x: -30,
+      y: 4.9,
+      z: -10,
+      intensity: 10,
+      ease: "Power2.easeInOut",
+    })
+    .to(
+      pointLight.position,
+      {
+        duration: 3,
+        x: 0,
+        y: 4.9,
+        z: 10,
+        intensity: 0,
+        ease: "Power2.easeInOut",
+      },
+      "-=1.5"
+    );
+});
+
+frontButton.addEventListener("click", () => {
+  console.log("click");
+  gsap
+    .timeline()
+    .to(pointLight.position, {
+      duration: 3,
+      x: 0,
+      y: -10,
+      z: 10,
+      intensity: 5,
+      ease: "Power2.easeInOut",
+    })
+    .to(
+      pointLight.position,
+      {
+        duration: 4,
+        x: 0,
+        y: 5,
+        z: 10,
+        intensity: 10,
+        ease: "Power2.easeInOut",
+      },
+      "-=2"
+    );
+});
+
+rightButton.addEventListener("click", () => {
+  console.log("click");
+  gsap
+    .timeline()
+    .to(pointLight.position, {
+      duration: 2,
+      x: -10,
+      y: 4.9,
+      z: -30,
+      intensity: 10,
+      ease: "Power2.easeInOut",
+    })
+    .to(
+      pointLight.position,
+      {
+        duration: 3,
+        x: 0,
+        y: 4.9,
+        z: 10,
+        intensity: 10,
+        ease: "Power2.easeInOut",
+      },
+      "-=1"
+    );
+});
+
+backButton.addEventListener("click", () => {
+  console.log("click");
+  gsap
+    .timeline()
+    .to(pointLight.position, {
+      duration: 5,
+      x: 0,
+      y: -10,
+      z: 10,
+      intensity: 10,
+      ease: "Power2.easeInOut",
+    })
+    .to(
+      pointLight.position,
+      {
+        duration: 3,
+        x: 0,
+        y: -1,
+        z: 10,
+        intensity: 10,
+        ease: "Power2.easeInOut",
+      },
+      "-=2"
+    );
+});
+
+topButton.addEventListener("click", () => {
+  console.log("click");
+  gsap
+    .timeline()
+    .to(pointLight.position, {
+      duration: 3,
+      x: -10,
+      y: -10,
+      z: 10,
+      intensity: 10,
+      ease: "Power2.easeInOut",
+    })
+    .to(
+      pointLight.position,
+      {
+        duration: 3,
+        x: 3,
+        y: -1,
+        z: 10,
+        intensity: 10,
+        ease: "Power2.easeInOut",
+      },
+      "-=2"
+    );
+});
 
 const light1 = gui.addFolder("light1");
 
@@ -156,9 +508,11 @@ const light1Color = {
 light1.addColor(light1Color, "color").onChange(() => {
   pointLight.color.set(light1Color.color);
 });
-const pointLightHelper = new THREE.PointLightHelper(pointLight, 2);
-scene.add(pointLightHelper);
+// const pointLightHelper = new THREE.PointLightHelper(pointLight, 2);
+// scene.add(pointLightHelper);
+
 // Lights 2
+
 const pointLight2 = new THREE.AmbientLight(0xffffff, 10);
 pointLight2.scale.set(0.3, 0.3, 0.3);
 pointLight2.position.x = -0.2;
@@ -181,8 +535,8 @@ const light2Color = {
 light2.addColor(light2Color, "color").onChange(() => {
   light2Color.color.set(light2Color.color);
 });
-const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 2);
-scene.add(pointLightHelper2);
+// const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 2);
+// scene.add(pointLightHelper2);
 
 /**
  * Sizes

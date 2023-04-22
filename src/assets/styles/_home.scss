@@ -32,6 +32,7 @@ main {
     justify-content: center;
     align-items: center;
     z-index: 4;
+    pointer-events: none; // a enlever
 
     .logo {
       width: 2rem;
@@ -54,6 +55,7 @@ main {
       margin-bottom: 18rem;
 
       &:before {
+        pointer-events: none;
         content: "DAYTONA";
         position: absolute;
         bottom: -61%;
@@ -96,8 +98,8 @@ main {
       left: 50%;
       transform: translate(-50%, -50%);
       font-family: $font_second;
-      color: #181818;
-      font-size: 1.5rem;
+      color: #18181857;
+      font-size: 1.2rem;
       z-index: 2;
       letter-spacing: 0.5rem;
     }
@@ -160,6 +162,7 @@ main {
           margin-right: 1rem;
           font-weight: bold;
         }
+
         p {
           position: relative;
           top: -1.5rem;
@@ -238,12 +241,35 @@ main {
       }
       .line1 {
         height: 0.7rem;
+        animation: 2s sound ease-in-out infinite;
       }
       .line2 {
         height: 1.5rem;
+        animation: 2s sound ease-in-out infinite;
+        animation-delay: 200ms;
       }
       .line3 {
         height: 1.2rem;
+        animation: 2s sound ease-in-out infinite;
+        animation-delay: 400ms;
+      }
+
+      @keyframes sound {
+        0% {
+          height: 0.7rem;
+        }
+        25% {
+          height: 1.5rem;
+        }
+        50% {
+          height: 0.3rem;
+        }
+        75% {
+          height: 0.8rem;
+        }
+        100% {
+          height: 0.7rem;
+        }
       }
     }
     .arrow__bottom {
@@ -276,6 +302,7 @@ main {
     align-items: center;
     padding: 3vw;
     z-index: 3;
+    pointer-events: none;
 
     p {
       position: relative;
@@ -295,7 +322,45 @@ main {
     }
   }
 
+  .change__module {
+    position: absolute;
+    bottom: 23%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    button {
+      width: 10rem;
+      height: 2rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: $black;
+      font-weight: 600;
+      font-family: $font_first;
+      font-size: 1rem;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      transition: 0.2s ease-in-out;
+      &:hover {
+        color: $red;
+      }
+    }
+
+    .compteur__button__active {
+      color: $red;
+    }
+    .manette__button__active {
+      color: $red;
+    }
+  }
+
   .compteur__vitesse {
+    pointer-events: none;
     position: absolute;
     bottom: 0%;
     left: 50%;
@@ -305,6 +370,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
 
     .compteur__bg {
       width: 100%;
@@ -314,9 +381,162 @@ main {
       position: absolute;
       bottom: -5%;
       left: 50%;
-      transform: translate(-50%, 0) rotate(-84deg);
+      transform: translate(-50%, 0) rotate(84deg);
       transform-origin: 50% calc(100% - 5%);
       width: 5%;
+      transition: 2s cubic-bezier(0.82, 0.01, 0.32, 0.99);
     }
+
+    .button__position {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      width: 2vw;
+      height: 2vw;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: 1vw;
+      font-family: $font_first;
+      transition: 0.2s ease-in-out;
+      border: 1px solid $black;
+      color: $white;
+      font-weight: bold;
+      background-color: $black;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 0.1rem;
+    }
+    .button__position__active {
+      border: 1px solid $red;
+      color: $white;
+      font-weight: bold;
+      background-color: $red;
+    }
+
+    #left {
+      top: 85%;
+      left: -9%;
+    }
+    #right {
+      top: 85%;
+      right: -20%;
+    }
+    #front {
+      top: 10%;
+      left: 10%;
+    }
+    #back {
+      top: 10%;
+
+      right: -1%;
+    }
+    #top {
+      top: -20%;
+      left: 50%;
+    }
+  }
+  .compteur__vitesse__active {
+    opacity: 1;
+    pointer-events: inherit;
+  }
+  .manette {
+    pointer-events: none;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 0.2rem;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+
+    .manette__top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 0.2rem;
+    }
+    .manette__middle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 0.2rem;
+    }
+    .manette__bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 0.2rem;
+    }
+
+    .long__button {
+      position: relative;
+      width: 10rem;
+      height: 2rem;
+      border-radius: 0.3rem;
+      background-color: $black;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg path {
+        fill: $white;
+        transition: 0.2s ease-in-out;
+      }
+      &:hover {
+        background-color: $red;
+      }
+      &:active {
+        border: 3px solid $black;
+        background-color: transparent;
+        transition: 0.1s ease-in-out;
+      }
+      &:active svg path {
+        fill: $black;
+      }
+    }
+
+    .short__button {
+      position: relative;
+      width: 4.9rem;
+      height: 2rem;
+      border-radius: 0.3rem;
+      background-color: $black;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg path {
+        fill: $white;
+        transition: 0.2s ease-in-out;
+      }
+      &:hover {
+        background-color: $red;
+      }
+      &:active {
+        border: 3px solid $black;
+        background-color: transparent;
+        transition: 0.1s ease-in-out;
+      }
+      &:active svg path {
+        fill: $black;
+      }
+    }
+  }
+  .manette__active {
+    opacity: 1;
+    pointer-events: inherit;
   }
 }

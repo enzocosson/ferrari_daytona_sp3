@@ -50,15 +50,15 @@
       <div class="left__side">
         <div class="statistics">
           <div class="stats">
-            <h3>2.8s</h3>
+            <h3 id="zero__to__100">0.0s</h3>
             <p>0-100km/h</p>
           </div>
           <div class="stats">
-            <h3>697</h3>
+            <h3 id="nm">697</h3>
             <p>NM</p>
           </div>
           <div class="stats">
-            <h3>829</h3>
+            <h3 id="hp">829</h3>
             <p>HP</p>
           </div>
         </div>
@@ -68,14 +68,150 @@
         <p class="right__side__text">Ferrari Daytona <span>SP3</span></p>
       </div>
 
-      <div class="compteur__vitesse">
+      <div class="change__module">
+        <button class="compteur__button compteur__button__active">
+          Compteur
+        </button>
+        <button class="manette__button">Manette</button>
+      </div>
+
+      <div class="compteur__vitesse compteur__vitesse__active">
         <img class="compteur__bg" src="assets/images/compteur.png" alt="" />
         <img
           class="aiguille"
           src="assets/images/aiguille-compteur.png"
           alt=""
         />
+
+        <button class="button__position" id="left">L</button>
+        <button class="button__position" id="front">F</button>
+        <button class="button__position" id="top">T</button>
+        <button class="button__position" id="back">B</button>
+        <button class="button__position button__position__active" id="right">
+          R
+        </button>
       </div>
+
+      <div class="manette">
+        <div class="manette__top">
+          <button id="buttonTopLeft" class="short__button">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.1003 3.52707L3.38025 3.38017L3.52715 11.1002L1.153 11.0524L0.949747 0.949667L11.0525 1.15292L11.1003 3.52707Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+          <button id="buttonTopMiddle" class="long__button">
+            <svg
+              width="15"
+              height="10"
+              viewBox="0 0 15 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.855 9.5L7.5 3.93725L2.145 9.5L0.5 7.78745L7.5 0.5L14.5 7.78745L12.855 9.5Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+          <button id="buttonTopRight" class="short__button">
+            <svg
+              width="11"
+              height="12"
+              viewBox="0 0 11 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.163407 3.52707L7.88342 3.38017L7.73652 11.1002L10.1107 11.0524L10.3139 0.949667L0.211173 1.15292L0.163407 3.52707Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="manette__middle">
+          <button id="buttonMiddleLeft" class="long__button">
+            <svg
+              width="9"
+              height="14"
+              viewBox="0 0 9 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 12.355L3.43725 7L9 1.645L7.28745 0L0 7L7.28745 14L9 12.355Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+          <button id="buttonMiddleRight" class="long__button">
+            <svg
+              width="9"
+              height="14"
+              viewBox="0 0 9 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M-6.85864e-08 12.355L5.56275 7L-6.85864e-08 1.645L1.71255 0L9 7L1.71255 14L-6.85864e-08 12.355Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="manette__bottom">
+          <button id="buttonBottomLeft" class="short__button">
+            <svg
+              width="12"
+              height="11"
+              viewBox="0 0 12 11"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.1003 7.73636L3.38025 7.88326L3.52715 0.163243L1.153 0.211009L0.949747 10.3138L11.0525 10.1105L11.1003 7.73636Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+          <button id="buttonBottomMiddle" class="long__button">
+            <svg
+              width="14"
+              height="9"
+              viewBox="0 0 14 9"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.645 -6.85864e-08L7 5.56275L12.355 -6.85864e-08L14 1.71255L7 9L4.76837e-07 1.71255L1.645 -6.85864e-08Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+          <button id="buttonBottomRight" class="short__button">
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 11 11"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.0325476 8.10428L7.75256 8.25118L7.60566 0.531163L9.97981 0.578929L10.1831 10.6817L0.0803131 10.4784L0.0325476 8.10428Z"
+                fill="#F6F7F8"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
       <span class="radius__bg"></span>
       <img
         class="points__background"
@@ -84,4 +220,5 @@
       />
     </main>
   </body>
+  <script src="app.js"></script>
 </html>

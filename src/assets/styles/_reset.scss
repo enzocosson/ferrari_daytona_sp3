@@ -24,10 +24,10 @@ $red: #c81e11;
 $font_first: Oswald, sans-serif;
 $font_second: Oxanium, sans-serif;
 
-// ::selection {
-//   background-color: var(--primary-color);
-//   color: #fcfcfc;
-// }
+::selection {
+  background-color: $red;
+  color: $gray;
+}
 // ::-webkit-scrollbar {
 //   width: 0.5vw;
 //   background-color: var(--white);
