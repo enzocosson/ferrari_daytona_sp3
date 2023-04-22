@@ -69,7 +69,7 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
       duration: 2,
       x: 0,
       y: -1.56,
-      z: 10,
+      z: 5,
       ease: "Power2.easeInOut",
     });
     gsap.to(gltf.scene.rotation, {

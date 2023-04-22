@@ -8,43 +8,41 @@
   <body>
     <main>
       <header>
-        <img
-          class="logo"
-          src="assets/images/black_logo.png"
-          alt="logo Ferrari"
-        />
+        <a href="index.html">
+          <img
+            class="logo"
+            src="assets/images/black_logo.png"
+            alt="logo Ferrari"
+          />
+        </a>
       </header>
       <div class="container_title">
         <h1 class="title">DAYTONA</h1>
         <h2>SP<span>3</span></h2>
+        <small>L'ESSENCE DE L'ESPRIT RACING</small>
       </div>
 
       <canvas class="webgl"></canvas>
-      <img
-        class="points__background"
-        src="assets/images/points_background.png"
-        alt="background points"
-      />
 
       <div class="bottom__side">
-        <div class="interaction">
+        <!-- <div class="interaction">
           <button id="front">Front</button>
           <button id="back">Back</button>
           <button id="left">Left</button>
           <button id="right">Right</button>
           <button id="top">Top</button>
-        </div>
+        </div> -->
         <div class="container__bottom">
           <div class="button__sound">
             <div class="line line1"></div>
             <div class="line line2"></div>
             <div class="line line3"></div>
           </div>
-          <img
+          <!-- <img
             class="arrow__bottom"
             src="assets/images/arrow_bottom.svg"
             alt=""
-          />
+          /> -->
           <p class="ame__text">UNE <span>ÂME</span> DE PROTOTYPE SPORTIF</p>
         </div>
       </div>
@@ -66,14 +64,24 @@
         </div>
       </div>
 
-
       <div class="right__side">
-        <p class="right__side__text">
-          Ferrari Daytona <span>SP3</span>
-        </p>
-        </div>
+        <p class="right__side__text">Ferrari Daytona <span>SP3</span></p>
       </div>
 
+      <div class="compteur__vitesse">
+        <img class="compteur__bg" src="assets/images/compteur.png" alt="" />
+        <img
+          class="aiguille"
+          src="assets/images/aiguille-compteur.png"
+          alt=""
+        />
+      </div>
+      <span class="radius__bg"></span>
+      <img
+        class="points__background"
+        src="assets/images/points_background.png"
+        alt="background points"
+      />
     </main>
   </body>
 </html>
