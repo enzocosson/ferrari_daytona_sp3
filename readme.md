@@ -1,11 +1,8 @@
-# Three.js Starter
-Courtesy of Bruno Simon of https://threejs-journey.xyz/
+# Visit the project
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+ThreeJs | Ferrari Daytona SP3 : https://www.enzo-cosson.fr/
 
-``` bash
+```bash
 # Install dependencies (only the first time)
 npm install
 
