@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
 import gsap from "gsap";
-import { TweenMax } from "gsap";
 
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -21,14 +20,122 @@ const scene = new THREE.Scene();
 // Objects
 // const geometry = new THREE.TorusGeometry(0.7, 0.05, 16, 100);
 
+// Object Loader GLTF
+gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
+  gltfLoader.scene.scale.set(0.5, 0.5, 0.5);
+  gltfLoader.scene.rotation.set(0, -1.5708, 0);
+  gltfLoader.scene.position.set(0.04, -1.56, -100);
+  gltfLoader.scene.opacity = "1";
+  scene.add(gltfLoader.scene);
+
+  const carLoader = gui.addFolder("carLoader");
+
+  carLoader.add(gltfLoader.scene.rotation, "x").min(0).max(9).step(0.01);
+  carLoader.add(gltfLoader.scene.rotation, "y").min(0).max(9).step(0.01);
+  carLoader.add(gltfLoader.scene.rotation, "z").min(0).max(9).step(0.01);
+
+  carLoader.add(gltfLoader.scene.position, "x").min(-10).max(10).step(0.01);
+  carLoader.add(gltfLoader.scene.position, "y").min(-10).max(10).step(0.01);
+  carLoader.add(gltfLoader.scene.position, "z").min(-500).max(50).step(0.01);
+
+  const yesButton = document.getElementById("yesButton");
+  const noButton = document.getElementById("noButton");
+
+  yesButton.addEventListener("click", () => {
+    const webgl = document.querySelector(".webgl");
+    setTimeout(() => {
+      webgl.classList.add("webgl__active");
+    }, 6000);
+
+    var tl = gsap.timeline();
+    tl.to(gltfLoader.scene.position, {
+      delay: 2,
+      duration: 5,
+      y: -1.56,
+      z: 20,
+      ease: "Power4.easeIn",
+    });
+
+    // tl.to(gltfLoader.scene.position, {
+    //   duration: 2,
+    //   x: -10,
+    //   z: -250,
+    //   ease: "Power1.easeInOut",
+    // })
+    //   .to(
+    //     gltfLoader.scene.rotation,
+    //     {
+    //       duration: 1,
+    //       y: -1.9,
+    //       ease: "Power1.easeIn",
+    //     },
+    //     "-=1.5"
+    //   )
+    //   .to(
+    //     gltfLoader.scene.rotation,
+    //     {
+    //       duration: 2,
+    //       y: -1.1,
+    //       ease: "Power1.easeOut",
+    //     },
+    //     "-=1.5"
+    //   )
+    //   .to(
+    //     gltfLoader.scene.position,
+    //     {
+    //       duration: 2.5,
+    //       x: 15,
+    //       z: -100,
+    //       ease: "Power1.easeInOut",
+    //     },
+    //     "-=0.5"
+    //   )
+    //   .to(
+    //     gltfLoader.scene.rotation,
+    //     {
+    //       duration: 3,
+    //       y: -1.9,
+    //       ease: "Power3.easeInOut",
+    //     },
+    //     "-=3"
+    //   )
+    //   .to(
+    //     gltfLoader.scene.position,
+    //     {
+    //       duration: 2,
+    //       x: -1,
+    //       y: -1.56,
+    //       z: 20,
+    //       ease: "Power1.easeIn",
+    //     },
+    //     "-=0"
+    //   )
+    //   .to(
+    //     gltfLoader.scene.rotation,
+    //     {
+    //       duration: 4,
+    //       y: -1,
+    //       ease: "Power1.easeInOut",
+    //     },
+    //     "-=2"
+    //   );
+  });
+  noButton.addEventListener("click", () => {
+    var tl = gsap.timeline();
+    tl.to(gltfLoader.scene.position, {
+      delay: 2,
+      duration: 5,
+      y: -1.56,
+      z: 20,
+      ease: "Power4.easeIn",
+    });
+  });
+});
 // Object GLTF
-
-let t1 = gsap.timeline();
-
 gltfLoader.load("./ferrari.gltf", (gltf) => {
   gltf.scene.scale.set(0.5, 0.5, 0.5);
   gltf.scene.rotation.set(0, 0, 0);
-  gltf.scene.position.set(0, -1.56, 0);
+  gltf.scene.position.set(-20, -1.56, 0);
   gltf.scene.opacity = "1";
   scene.add(gltf.scene);
 
@@ -47,6 +154,18 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   const leftButton = document.getElementById("left");
   const rightButton = document.getElementById("right");
   const topButton = document.getElementById("top");
+
+  yesButton.addEventListener("click", () => {
+    setTimeout(() => {
+      gsap.to(gltf.scene.position, {
+        duration: 5,
+        x: 0,
+        ease: "Power4.easeInOut",
+      });
+    }, 6000);
+  });
+
+  noButton.addEventListener("click", () => {});
 
   frontButton.addEventListener("click", () => {
     gsap.to(gltf.scene.position, {
@@ -131,93 +250,6 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
       ease: "Power2.easeInOut",
     });
   });
-
-  // const buttonTopLeft = document.getElementById("buttonTopLeft");
-  // const buttonTopMiddle = document.getElementById("buttonTopMiddle");
-  // const buttonTopRight = document.getElementById("buttonTopRight");
-  // const buttonMiddleLeft = document.getElementById("buttonMiddleLeft");
-  // const buttonMiddleRight = document.getElementById("buttonMiddleRight");
-  // const buttonBottomLeft = document.getElementById("buttonBottomLeft");
-  // const buttonBottomMiddle = document.getElementById("buttonBottomMiddle");
-  // const buttonBottomRight = document.getElementById("buttonBottomRight");
-
-  // buttonTopLeft.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "-=0.3",
-  //     y: "-=0.3",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-
-  // buttonTopMiddle.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "-=0.3",
-  //     y: "+=0",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-
-  // buttonTopRight.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "-=0.3",
-  //     y: "+=0.3",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-
-  // buttonMiddleLeft.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "+=0",
-  //     y: "-=0.3",
-  //     z: "0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-  // buttonMiddleRight.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "+=0",
-  //     y: "+=0.3",
-  //     z: "-=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-
-  // buttonBottomLeft.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "+=0.3",
-  //     y: "-=0.3",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-
-  // buttonBottomMiddle.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "+=0.3",
-  //     y: "+=0",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
-  // buttonBottomRight.addEventListener("click", () => {
-  //   gsap.to(gltf.scene.rotation, {
-  //     duration: 0.5,
-  //     x: "+=0.3",
-  //     y: "+=0.3",
-  //     z: "+=0",
-  //     ease: "Power2.easeInOut",
-  //   });
-  // });
 
   const buttonTopLeft = document.getElementById("buttonTopLeft");
   const buttonTopMiddle = document.getElementById("buttonTopMiddle");
@@ -361,8 +393,30 @@ pointLight.scale.set(0.3, 0.3, 0.3);
 pointLight.position.x = 0.2;
 pointLight.position.y = 4.9;
 pointLight.position.z = 6.5;
-pointLight.intensity = 10;
+pointLight.intensity = 0;
 scene.add(pointLight);
+
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+
+yesButton.addEventListener("click", () => {
+  var tlLight = gsap.timeline();
+  tlLight.to(pointLight, {
+    delay: 4,
+    duration: 4,
+    intensity: 10,
+    ease: "Power4.easeInOut",
+  });
+});
+noButton.addEventListener("click", () => {
+  var tlLight = gsap.timeline();
+  tlLight.to(pointLight, {
+    delay: 4,
+    duration: 4,
+    intensity: 10,
+    ease: "Power4.easeInOut",
+  });
+});
 
 leftButton.addEventListener("click", () => {
   console.log("click");
@@ -578,16 +632,21 @@ camera.rotation.x = 0;
 camera.rotation.y = 0;
 camera.rotation.z = 0;
 
+camera.far = 10000;
+
 scene.add(camera);
 
 const cameraSettings = gui.addFolder("camera");
 gui.add(camera.position, "x", -10, 10).step(0.1);
 gui.add(camera.position, "y", -10, 10).step(0.1);
 gui.add(camera.position, "z", -10, 10).step(0.1);
-
 gui.add(camera.rotation, "x", -10, 10).step(0.1);
 gui.add(camera.rotation, "y", -10, 10).step(0.1);
 gui.add(camera.rotation, "z", -10, 10).step(0.1);
+gui.add({ distance: camera.far }, "distance", 0, 10000).onChange((value) => {
+  camera.far = value;
+  camera.updateProjectionMatrix();
+});
 
 gui
   .add(camera, "fov", 50, 150)
@@ -595,6 +654,14 @@ gui
   .onChange(() => {
     camera.updateProjectionMatrix();
   });
+
+gsap.to(camera, {
+  far: 10001,
+  duration: 1, // durée de l'animation
+  onUpdate: function () {
+    camera.updateProjectionMatrix(); // mise à jour de la projection de la caméra pendant l'animation
+  },
+});
 
 // Controls
 // const controls = new OrbitControls(camera, canvas)

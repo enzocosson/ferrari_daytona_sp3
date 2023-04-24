@@ -7,7 +7,16 @@
   </head>
   <body>
     <main>
+      <canvas class="webgl"></canvas>
       <div class="loader">
+        <div class="conditions__sounds">
+          <p>Ambiance sonore ?</p>
+          <div class="agreement">
+            <button id="noButton">No</button>
+            <button id="yesButton">Yes</button>
+          </div>
+        </div>
+        <audio class="sound__car" src="assets/audio/sound_car.mp3"></audio>
         <img
           class="logo__loader black"
           src="assets/images/white_logo.png"
@@ -34,16 +43,7 @@
         <small>L'ESSENCE DE L'ESPRIT RACING</small>
       </div>
 
-      <canvas class="webgl"></canvas>
-
       <div class="bottom__side">
-        <!-- <div class="interaction">
-          <button id="front">Front</button>
-          <button id="back">Back</button>
-          <button id="left">Left</button>
-          <button id="right">Right</button>
-          <button id="top">Top</button>
-        </div> -->
         <div class="container__bottom">
           <div class="button__sound">
             <div class="line line1"></div>
@@ -66,11 +66,11 @@
             <p>0-100km/h</p>
           </div>
           <div class="stats">
-            <h3 id="nm">697</h3>
+            <h3 id="nm">000</h3>
             <p>NM</p>
           </div>
           <div class="stats">
-            <h3 id="hp">829</h3>
+            <h3 id="hp">000</h3>
             <p>HP</p>
           </div>
         </div>
@@ -233,4 +233,5 @@
     </main>
   </body>
   <script src="app.js"></script>
+  <script src="loaderAndSound.js"></script>
 </html>

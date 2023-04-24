@@ -52,6 +52,15 @@ module.exports = {
           filename: "assets/images/[name][ext]",
         },
       },
+      // Audio
+      {
+        test: /\.(mp3|wav)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/audio/[name][ext]",
+        },
+      },
+
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],

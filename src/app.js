@@ -1,8 +1,3 @@
-const loader = document.querySelector(".loader");
-window.addEventListener("load", () => {
-  loader.classList.add("loader__active");
-});
-
 const frontButton = document.getElementById("front");
 const backButton = document.getElementById("back");
 const leftButton = document.getElementById("left");
@@ -146,4 +141,14 @@ function animationStats() {
   requestAnimationFrame(animate);
 }
 
-window.addEventListener("load", animationStats);
+yesButton.addEventListener("click", () => {
+  setTimeout(() => {
+    animationStats();
+  }, 6500);
+});
+
+noButton.addEventListener("click", () => {
+  setTimeout(() => {
+    animationStats();
+  }, 6500);
+});
