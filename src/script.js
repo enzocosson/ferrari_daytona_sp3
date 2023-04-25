@@ -17,26 +17,25 @@ const canvas = document.querySelector("canvas.webgl");
 // Scene
 const scene = new THREE.Scene();
 
-// Objects
-// const geometry = new THREE.TorusGeometry(0.7, 0.05, 16, 100);
+let loadedCount = 0;
+const expectedLoadCount = 2; // deux fichiers GLTF sont attendus
+
+// Fonction pour activer la classe "loader__active" lorsque tous les fichiers sont chargés
+function activateLoader() {
+  if (loadedCount === expectedLoadCount) {
+    const loader = document.querySelector(".loader");
+    loader.classList.add("loader__active");
+  }
+}
 
 // Object Loader GLTF
+
 gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
   gltfLoader.scene.scale.set(0.5, 0.5, 0.5);
   gltfLoader.scene.rotation.set(0, -1.5708, 0);
   gltfLoader.scene.position.set(0.04, -1.56, -100);
   gltfLoader.scene.opacity = "1";
   scene.add(gltfLoader.scene);
-
-  // const carLoader = gui.addFolder("carLoader");
-
-  // carLoader.add(gltfLoader.scene.rotation, "x").min(0).max(9).step(0.01);
-  // carLoader.add(gltfLoader.scene.rotation, "y").min(0).max(9).step(0.01);
-  // carLoader.add(gltfLoader.scene.rotation, "z").min(0).max(9).step(0.01);
-
-  // carLoader.add(gltfLoader.scene.position, "x").min(-10).max(10).step(0.01);
-  // carLoader.add(gltfLoader.scene.position, "y").min(-10).max(10).step(0.01);
-  // carLoader.add(gltfLoader.scene.position, "z").min(-500).max(50).step(0.01);
 
   const yesButton = document.getElementById("yesButton");
   const noButton = document.getElementById("noButton");
@@ -55,70 +54,6 @@ gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
       z: 20,
       ease: "Power1.easeIn",
     });
-
-    // tl.to(gltfLoader.scene.position, {
-    //   duration: 2,
-    //   x: -10,
-    //   z: -250,
-    //   ease: "Power1.easeInOut",
-    // })
-    //   .to(
-    //     gltfLoader.scene.rotation,
-    //     {
-    //       duration: 1,
-    //       y: -1.9,
-    //       ease: "Power1.easeIn",
-    //     },
-    //     "-=1.5"
-    //   )
-    //   .to(
-    //     gltfLoader.scene.rotation,
-    //     {
-    //       duration: 2,
-    //       y: -1.1,
-    //       ease: "Power1.easeOut",
-    //     },
-    //     "-=1.5"
-    //   )
-    //   .to(
-    //     gltfLoader.scene.position,
-    //     {
-    //       duration: 2.5,
-    //       x: 15,
-    //       z: -100,
-    //       ease: "Power1.easeInOut",
-    //     },
-    //     "-=0.5"
-    //   )
-    //   .to(
-    //     gltfLoader.scene.rotation,
-    //     {
-    //       duration: 3,
-    //       y: -1.9,
-    //       ease: "Power3.easeInOut",
-    //     },
-    //     "-=3"
-    //   )
-    //   .to(
-    //     gltfLoader.scene.position,
-    //     {
-    //       duration: 2,
-    //       x: -1,
-    //       y: -1.56,
-    //       z: 20,
-    //       ease: "Power1.easeIn",
-    //     },
-    //     "-=0"
-    //   )
-    //   .to(
-    //     gltfLoader.scene.rotation,
-    //     {
-    //       duration: 4,
-    //       y: -1,
-    //       ease: "Power1.easeInOut",
-    //     },
-    //     "-=2"
-    //   );
   });
   noButton.addEventListener("click", () => {
     const webgl = document.querySelector(".webgl");
@@ -134,7 +69,11 @@ gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
       ease: "Power1.easeIn",
     });
   });
+
+  loadedCount++;
+  activateLoader();
 });
+
 // Object GLTF
 gltfLoader.load("./ferrari.gltf", (gltf) => {
   gltf.scene.scale.set(0.5, 0.5, 0.5);
@@ -142,16 +81,6 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   gltf.scene.position.set(-20, -1.56, 0);
   gltf.scene.opacity = "1";
   scene.add(gltf.scene);
-
-  // const car = gui.addFolder("car");
-
-  // car.add(gltf.scene.rotation, "x").min(0).max(9).step(0.01);
-  // car.add(gltf.scene.rotation, "y").min(0).max(9).step(0.01);
-  // car.add(gltf.scene.rotation, "z").min(0).max(9).step(0.01);
-
-  // car.add(gltf.scene.position, "x").min(-10).max(10).step(0.01);
-  // car.add(gltf.scene.position, "y").min(-10).max(10).step(0.01);
-  // car.add(gltf.scene.position, "z").min(-30).max(10).step(0.01);
 
   function animationMouseMove() {
     // Ajouter un écouteur d'événement pour la souris
@@ -455,6 +384,9 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
     clearInterval(autoIncrementIntervalId);
   }
   clearInterval(autoIncrementIntervalId);
+
+  loadedCount++;
+  activateLoader();
 });
 
 // Lights
@@ -791,3 +723,9 @@ const tick = () => {
 };
 
 tick();
+
+// Loader -------------------------------------------
+
+window.addEventListener("load", () => {
+  activateLoader();
+});

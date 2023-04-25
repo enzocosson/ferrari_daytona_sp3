@@ -2,10 +2,6 @@ const loader = document.querySelector(".loader");
 const sound__car = document.querySelector(".sound__car");
 const button__sound = document.querySelector(".button__sound");
 
-window.addEventListener("load", () => {
-  loader.classList.add("loader__active");
-});
-
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 const conditions__sounds = document.querySelector(".conditions__sounds");
