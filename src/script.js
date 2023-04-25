@@ -487,6 +487,11 @@ noButton.addEventListener("click", () => {
     ease: "Power4.easeInOut",
   });
 });
+const frontButton = document.getElementById("front");
+const backButton = document.getElementById("back");
+const leftButton = document.getElementById("left");
+const rightButton = document.getElementById("right");
+const topButton = document.getElementById("top");
 
 leftButton.addEventListener("click", () => {
   console.log("click");
