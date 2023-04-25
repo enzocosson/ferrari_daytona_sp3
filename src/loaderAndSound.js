@@ -28,10 +28,10 @@ button__sound.addEventListener("click", () => {
   if (localStorage.getItem("sound__enabled") === "true") {
     localStorage.setItem("sound__enabled", "false");
     console.log(localStorage.getItem("sound__enabled"));
-    // button__sound.classList.remove("button__sound__active");
+    button__sound.classList.add("button__sound__active");
   } else {
     localStorage.setItem("sound__enabled", "true");
     console.log(localStorage.getItem("sound__enabled"));
-    // button__sound.classList.add("button__sound__active");
+    button__sound.classList.remove("button__sound__active");
   }
 });

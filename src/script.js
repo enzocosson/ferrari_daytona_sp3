@@ -9,7 +9,7 @@ import "./assets/styles/main.scss";
 
 const gltfLoader = new GLTFLoader();
 // Debug
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -28,15 +28,15 @@ gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
   gltfLoader.scene.opacity = "1";
   scene.add(gltfLoader.scene);
 
-  const carLoader = gui.addFolder("carLoader");
+  // const carLoader = gui.addFolder("carLoader");
 
-  carLoader.add(gltfLoader.scene.rotation, "x").min(0).max(9).step(0.01);
-  carLoader.add(gltfLoader.scene.rotation, "y").min(0).max(9).step(0.01);
-  carLoader.add(gltfLoader.scene.rotation, "z").min(0).max(9).step(0.01);
+  // carLoader.add(gltfLoader.scene.rotation, "x").min(0).max(9).step(0.01);
+  // carLoader.add(gltfLoader.scene.rotation, "y").min(0).max(9).step(0.01);
+  // carLoader.add(gltfLoader.scene.rotation, "z").min(0).max(9).step(0.01);
 
-  carLoader.add(gltfLoader.scene.position, "x").min(-10).max(10).step(0.01);
-  carLoader.add(gltfLoader.scene.position, "y").min(-10).max(10).step(0.01);
-  carLoader.add(gltfLoader.scene.position, "z").min(-500).max(50).step(0.01);
+  // carLoader.add(gltfLoader.scene.position, "x").min(-10).max(10).step(0.01);
+  // carLoader.add(gltfLoader.scene.position, "y").min(-10).max(10).step(0.01);
+  // carLoader.add(gltfLoader.scene.position, "z").min(-500).max(50).step(0.01);
 
   const yesButton = document.getElementById("yesButton");
   const noButton = document.getElementById("noButton");
@@ -45,15 +45,15 @@ gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
     const webgl = document.querySelector(".webgl");
     setTimeout(() => {
       webgl.classList.add("webgl__active");
-    }, 6000);
+    }, 3000);
 
     var tl = gsap.timeline();
     tl.to(gltfLoader.scene.position, {
-      delay: 2,
-      duration: 5,
+      delay: 0,
+      duration: 3,
       y: -1.56,
       z: 20,
-      ease: "Power4.easeIn",
+      ease: "Power1.easeIn",
     });
 
     // tl.to(gltfLoader.scene.position, {
@@ -121,13 +121,17 @@ gltfLoader.load("./ferrari.gltf", (gltfLoader) => {
     //   );
   });
   noButton.addEventListener("click", () => {
+    const webgl = document.querySelector(".webgl");
+    setTimeout(() => {
+      webgl.classList.add("webgl__active");
+    }, 3000);
     var tl = gsap.timeline();
     tl.to(gltfLoader.scene.position, {
-      delay: 2,
-      duration: 5,
+      delay: 1,
+      duration: 3,
       y: -1.56,
       z: 20,
-      ease: "Power4.easeIn",
+      ease: "Power1.easeIn",
     });
   });
 });
@@ -139,21 +143,54 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   gltf.scene.opacity = "1";
   scene.add(gltf.scene);
 
-  const car = gui.addFolder("car");
+  // const car = gui.addFolder("car");
 
-  car.add(gltf.scene.rotation, "x").min(0).max(9).step(0.01);
-  car.add(gltf.scene.rotation, "y").min(0).max(9).step(0.01);
-  car.add(gltf.scene.rotation, "z").min(0).max(9).step(0.01);
+  // car.add(gltf.scene.rotation, "x").min(0).max(9).step(0.01);
+  // car.add(gltf.scene.rotation, "y").min(0).max(9).step(0.01);
+  // car.add(gltf.scene.rotation, "z").min(0).max(9).step(0.01);
 
-  car.add(gltf.scene.position, "x").min(-10).max(10).step(0.01);
-  car.add(gltf.scene.position, "y").min(-10).max(10).step(0.01);
-  car.add(gltf.scene.position, "z").min(-30).max(10).step(0.01);
+  // car.add(gltf.scene.position, "x").min(-10).max(10).step(0.01);
+  // car.add(gltf.scene.position, "y").min(-10).max(10).step(0.01);
+  // car.add(gltf.scene.position, "z").min(-30).max(10).step(0.01);
+
+  function animationMouseMove() {
+    // Ajouter un écouteur d'événement pour la souris
+    window.addEventListener("mousemove", onMouseMove, false);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let animate = true;
+
+    function onMouseMove(event) {
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+      animate = true;
+    }
+
+    document.addEventListener("mousemove", onMouseMove, false);
+
+    function update() {
+      requestAnimationFrame(update);
+
+      if (animate) {
+        // Mettre à jour la rotation de l'objet en fonction de la position de la souris
+        gltf.scene.rotation.x = mouseY * 0.2;
+        gltf.scene.rotation.y = mouseX * 0.2;
+      }
+
+      // Render la scène
+      renderer.render(scene, camera);
+    }
+
+    update();
+  }
 
   const frontButton = document.getElementById("front");
   const backButton = document.getElementById("back");
   const leftButton = document.getElementById("left");
   const rightButton = document.getElementById("right");
   const topButton = document.getElementById("top");
+  const swoosh__transition = document.querySelector(".swoosh__transition");
 
   yesButton.addEventListener("click", () => {
     setTimeout(() => {
@@ -162,12 +199,25 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
         x: 0,
         ease: "Power4.easeInOut",
       });
-    }, 6000);
+    }, 3500);
   });
 
-  noButton.addEventListener("click", () => {});
+  noButton.addEventListener("click", () => {
+    setTimeout(() => {
+      gsap.to(gltf.scene.position, {
+        duration: 5,
+        x: 0,
+        ease: "Power4.easeInOut",
+      });
+    }, 3500);
+  });
 
   frontButton.addEventListener("click", () => {
+    if (localStorage.getItem("sound__enabled") === "true") {
+      swoosh__transition.play();
+    } else {
+      swoosh__transition.pause();
+    }
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
@@ -184,6 +234,11 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
     });
   });
   backButton.addEventListener("click", () => {
+    if (localStorage.getItem("sound__enabled") === "true") {
+      swoosh__transition.play();
+    } else {
+      swoosh__transition.pause();
+    }
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
@@ -201,6 +256,11 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   });
 
   leftButton.addEventListener("click", () => {
+    if (localStorage.getItem("sound__enabled") === "true") {
+      swoosh__transition.play();
+    } else {
+      swoosh__transition.pause();
+    }
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
@@ -218,6 +278,11 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   });
 
   rightButton.addEventListener("click", () => {
+    if (localStorage.getItem("sound__enabled") === "true") {
+      swoosh__transition.play();
+    } else {
+      swoosh__transition.pause();
+    }
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
@@ -235,6 +300,11 @@ gltfLoader.load("./ferrari.gltf", (gltf) => {
   });
 
   topButton.addEventListener("click", () => {
+    if (localStorage.getItem("sound__enabled") === "true") {
+      swoosh__transition.play();
+    } else {
+      swoosh__transition.pause();
+    }
     gsap.to(gltf.scene.position, {
       duration: 2,
       x: 0,
@@ -402,18 +472,18 @@ const noButton = document.getElementById("noButton");
 yesButton.addEventListener("click", () => {
   var tlLight = gsap.timeline();
   tlLight.to(pointLight, {
-    delay: 4,
-    duration: 4,
-    intensity: 10,
+    delay: 0,
+    duration: 3,
+    intensity: 30,
     ease: "Power4.easeInOut",
   });
 });
 noButton.addEventListener("click", () => {
   var tlLight = gsap.timeline();
   tlLight.to(pointLight, {
-    delay: 4,
-    duration: 4,
-    intensity: 10,
+    delay: 0,
+    duration: 3,
+    intensity: 30,
     ease: "Power4.easeInOut",
   });
 });
@@ -427,7 +497,7 @@ leftButton.addEventListener("click", () => {
       x: -30,
       y: 4.9,
       z: -10,
-      intensity: 10,
+      intensity: 30,
       ease: "Power2.easeInOut",
     })
     .to(
@@ -463,7 +533,7 @@ frontButton.addEventListener("click", () => {
         x: 0,
         y: 5,
         z: 10,
-        intensity: 10,
+        intensity: 30,
         ease: "Power2.easeInOut",
       },
       "-=2"
@@ -479,7 +549,7 @@ rightButton.addEventListener("click", () => {
       x: -10,
       y: 4.9,
       z: -30,
-      intensity: 10,
+      intensity: 30,
       ease: "Power2.easeInOut",
     })
     .to(
@@ -489,7 +559,7 @@ rightButton.addEventListener("click", () => {
         x: 0,
         y: 4.9,
         z: 10,
-        intensity: 10,
+        intensity: 30,
         ease: "Power2.easeInOut",
       },
       "-=1"
@@ -505,7 +575,7 @@ backButton.addEventListener("click", () => {
       x: 0,
       y: -10,
       z: 10,
-      intensity: 10,
+      intensity: 30,
       ease: "Power2.easeInOut",
     })
     .to(
@@ -515,7 +585,7 @@ backButton.addEventListener("click", () => {
         x: 0,
         y: -1,
         z: 10,
-        intensity: 10,
+        intensity: 30,
         ease: "Power2.easeInOut",
       },
       "-=2"
@@ -531,7 +601,7 @@ topButton.addEventListener("click", () => {
       x: -10,
       y: -10,
       z: 10,
-      intensity: 10,
+      intensity: 30,
       ease: "Power2.easeInOut",
     })
     .to(
@@ -541,27 +611,27 @@ topButton.addEventListener("click", () => {
         x: 3,
         y: -1,
         z: 10,
-        intensity: 10,
+        intensity: 30,
         ease: "Power2.easeInOut",
       },
       "-=2"
     );
 });
 
-const light1 = gui.addFolder("light1");
+// const light1 = gui.addFolder("light1");
 
-light1.add(pointLight.position, "x").min(-10).max(10).step(0.1);
-light1.add(pointLight.position, "y").min(-10).max(10).step(0.1);
-light1.add(pointLight.position, "z").min(-50).max(10).step(0.1);
-light1.add(pointLight, "intensity").min(-10).max(100).step(0.1);
+// light1.add(pointLight.position, "x").min(-10).max(10).step(0.1);
+// light1.add(pointLight.position, "y").min(-10).max(10).step(0.1);
+// light1.add(pointLight.position, "z").min(-50).max(10).step(0.1);
+// light1.add(pointLight, "intensity").min(-10).max(100).step(0.1);
 
-const light1Color = {
-  color: 0xffffff,
-};
+// const light1Color = {
+//   color: 0xffffff,
+// };
 
-light1.addColor(light1Color, "color").onChange(() => {
-  pointLight.color.set(light1Color.color);
-});
+// light1.addColor(light1Color, "color").onChange(() => {
+//   pointLight.color.set(light1Color.color);
+// });
 // const pointLightHelper = new THREE.PointLightHelper(pointLight, 2);
 // scene.add(pointLightHelper);
 
@@ -575,20 +645,20 @@ pointLight2.position.z = 7.2;
 pointLight2.intensity = 10;
 scene.add(pointLight2);
 
-const light2 = gui.addFolder("PointLight2");
+// const light2 = gui.addFolder("PointLight2");
 
-light2.add(pointLight2.position, "x").min(-10).max(10).step(0.1);
-light2.add(pointLight2.position, "y").min(-10).max(10).step(0.1);
-light2.add(pointLight2.position, "z").min(-50).max(10).step(0.1);
-light2.add(pointLight2, "intensity").min(-10).max(100).step(0.1);
+// light2.add(pointLight2.position, "x").min(-10).max(10).step(0.1);
+// light2.add(pointLight2.position, "y").min(-10).max(10).step(0.1);
+// light2.add(pointLight2.position, "z").min(-50).max(10).step(0.1);
+// light2.add(pointLight2, "intensity").min(-10).max(100).step(0.1);
 
-const light2Color = {
-  color: 0xffffff,
-};
+// const light2Color = {
+//   color: 0xffffff,
+// };
 
-light2.addColor(light2Color, "color").onChange(() => {
-  light2Color.color.set(light2Color.color);
-});
+// light2.addColor(light2Color, "color").onChange(() => {
+//   light2Color.color.set(light2Color.color);
+// });
 // const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 2);
 // scene.add(pointLightHelper2);
 
@@ -636,24 +706,24 @@ camera.far = 10000;
 
 scene.add(camera);
 
-const cameraSettings = gui.addFolder("camera");
-gui.add(camera.position, "x", -10, 10).step(0.1);
-gui.add(camera.position, "y", -10, 10).step(0.1);
-gui.add(camera.position, "z", -10, 10).step(0.1);
-gui.add(camera.rotation, "x", -10, 10).step(0.1);
-gui.add(camera.rotation, "y", -10, 10).step(0.1);
-gui.add(camera.rotation, "z", -10, 10).step(0.1);
-gui.add({ distance: camera.far }, "distance", 0, 10000).onChange((value) => {
-  camera.far = value;
-  camera.updateProjectionMatrix();
-});
+// const cameraSettings = gui.addFolder("camera");
+// gui.add(camera.position, "x", -10, 10).step(0.1);
+// gui.add(camera.position, "y", -10, 10).step(0.1);
+// gui.add(camera.position, "z", -10, 10).step(0.1);
+// gui.add(camera.rotation, "x", -10, 10).step(0.1);
+// gui.add(camera.rotation, "y", -10, 10).step(0.1);
+// gui.add(camera.rotation, "z", -10, 10).step(0.1);
+// gui.add({ distance: camera.far }, "distance", 0, 10000).onChange((value) => {
+//   camera.far = value;
+//   camera.updateProjectionMatrix();
+// });
 
-gui
-  .add(camera, "fov", 50, 150)
-  .name("Focal Length")
-  .onChange(() => {
-    camera.updateProjectionMatrix();
-  });
+// gui
+//   .add(camera, "fov", 50, 150)
+//   .name("Focal Length")
+//   .onChange(() => {
+//     camera.updateProjectionMatrix();
+//   });
 
 gsap.to(camera, {
   far: 10001,
@@ -673,10 +743,17 @@ gsap.to(camera, {
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   alpha: true,
+  antialias: true,
 });
 
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 4));
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// Activer le ray tracing
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.physicallyCorrectLights = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 3;
 
 function render() {
   requestAnimationFrame(render);

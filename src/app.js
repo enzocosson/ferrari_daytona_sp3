@@ -144,11 +144,11 @@ function animationStats() {
 yesButton.addEventListener("click", () => {
   setTimeout(() => {
     animationStats();
-  }, 6500);
+  }, 3500);
 });
 
 noButton.addEventListener("click", () => {
   setTimeout(() => {
     animationStats();
-  }, 6500);
+  }, 3500);
 });
